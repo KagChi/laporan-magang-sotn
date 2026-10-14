@@ -7,22 +7,39 @@
 \babfrontmatter{Abstrak}
 
 \begin{singlespace}
-% TODO: tulis abstrak 200-300 kata dalam satu paragraf: masalah, tujuan
-% magang, metode/teknologi yang dipakai, hasil, dan simpulan singkat.
+Penulisan karya ilmiah dengan bantuan \asing{large language model} (LLM)
+menghadapi dua kelemahan yang berulang: sitasi yang dikarang dan penyuntingan
+naskah yang berjalan tanpa sepengetahuan penulis. Laporan magang ini
+menyajikan perancangan dan implementasi sistem penulisan riset berbantuan AI
+yang dijalankan secara lokal pada komputer peneliti. Jawaban sistem hanya
+bersumber pada dokumen yang dikumpulkan peneliti, sitasi hanya sah bila
+terverifikasi terhadap pustaka lokal, dan draf tidak pernah masuk ke naskah
+tanpa persetujuan manusia.
+
+Sistem memadukan antarmuka web React, layanan \asing{backend} FastAPI dengan
+sebelas perute API, basis data SQLite untuk data terstruktur, dan penyimpanan
+vektor Chroma untuk potongan sumber setiap proyek. Dokumen sumber dicacah,
+diubah menjadi vektor \asing{embedding}, dan disimpan, lalu dipakai pada tahap
+pengambilan konteks. Percakapan berjalan dalam tiga mode: \asing{Ask} menjawab
+pertanyaan
+dari potongan sumber yang ditemukan dan menandai jawaban yang tidak berdasar,
+\asing{Plan} hanya menyusun kerangka tanpa menulis naskah, dan \asing{Build}
+menyusun draf bagian dari sumber. Konteks yang dikirim ke model dibatasi pada
+potongan hasil pengambilan, ringkasan memori percakapan, dan konteks yang
+disematkan peneliti. Alur revisi agen memetakan instruksi ke bagian naskah
+melalui judul, alias, dan batas kata, lalu menggagalkan instruksi yang ambigu
+alih-alih menebak. Setiap sitasi pada teks hasil revisi wajib terverifikasi
+pada pustaka lokal yang bersumber dari OpenAlex, sehingga sitasi yang gagal
+ditolak atau ditandai. Peneliti memutuskan menerima atau membuang setiap
+usulan revisi. Naskah akhir diekspor sebagai berkas LaTeX beserta daftar
+pustakanya dan disinkronkan dua arah dengan repositori GitHub untuk setiap
+proyek. Pengujian dirancang dalam tiga skenario: keberpijakan sitasi,
+ketepatan penargetan bagian naskah, dan ketepatan putaran ekspor serta
+sinkronisasi.
+% TODO: tambahkan angka hasil pengujian bila sudah tersedia.
 
 \vspace{1\baselineskip}
-\textbf{Kata kunci:} kata kunci satu, kata kunci dua, kata kunci tiga
+\textbf{Kata kunci:} penulisan riset berbantuan AI, \asing{retrieval-augmented
+generation}, verifikasi sitasi, \asing{human-in-the-loop}, OpenAlex,
+\asing{large language model}
 \end{singlespace}
-
-%% --------------------------------------------------------------------------
-%%  OPSIONAL — halaman Abstract (bahasa Inggris)
-%%  Aktifkan blok di bawah HANYA bila dosen pembimbing mensyaratkan laporan
-%%  berbahasa Inggris. Letakkan tepat setelah halaman Abstrak.
-%% --------------------------------------------------------------------------
-%% \babfrontmatter{Abstract}
-%% \begin{singlespace}
-%% % TODO: 200-300 words.
-%% \vspace{1\baselineskip}
-%% \textbf{Keywords:} first keyword, second keyword, third keyword
-%% \end{singlespace}
-
