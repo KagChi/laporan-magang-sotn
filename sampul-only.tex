@@ -1,0 +1,14 @@
+% !TEX program = xelatex
+%% ===========================================================================
+%%  sampul-only.tex — hanya halaman Sampul
+%%  Untuk mencetak sampul pada kertas Omega hijau daun dengan tinta hitam.
+%%  Kompilasi: make sampul   (hasil: sampul-only.pdf)
+%% ===========================================================================
+\documentclass[12pt,a4paper,oneside]{report}
+\usepackage{laporan}
+\input{config/metadata}
+\begin{document}
+\pagenumbering{roman}
+\input{frontmatter/sampul}
+\end{document}
+

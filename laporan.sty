@@ -1,0 +1,209 @@
+%% ===========================================================================
+%%  laporan.sty — Gaya format Laporan Magang STMIK Kuwera (SOTN)
+%%  Mengikuti Pedoman Penulisan Laporan Magang Bab 4.1 (format halaman dan
+%%  huruf) dan Bab 4.3 (urutan isi laporan).
+%%
+%%  Mesin: XeLaTeX (Times New Roman asli). Paket yang dipakai sengaja hanya
+%%  yang tersedia di TeX Live Basic: tanpa tocloft / titlesec / enumitem /
+%%  biblatex, jadi tidak perlu "tlmgr install".
+%% ===========================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{laporan}[2026/10/14 v1.0 Gaya Laporan Magang STMIK Kuwera]
+
+%% ------------------------------------------------------------------- paket
+\RequirePackage{fontspec}
+\RequirePackage[english,indonesian]{babel}
+\RequirePackage[a4paper,top=4cm,left=4cm,right=3cm,bottom=3cm]{geometry}
+\RequirePackage{setspace}
+\RequirePackage{fancyhdr}
+\RequirePackage{graphicx}
+\RequirePackage{float}
+\RequirePackage{caption}
+\RequirePackage{booktabs}
+\RequirePackage{array}
+\RequirePackage{longtable}
+\RequirePackage{tabularx}
+\RequirePackage{listings}
+\RequirePackage{indentfirst}
+\RequirePackage{natbib}
+\RequirePackage[normalem]{ulem}   %% garis bawah nama penanda tangan (boleh pindah baris)
+\RequirePackage[hidelinks]{hyperref}
+
+%% -------------------------------------------------------------------- font
+\setmainfont{Times New Roman}
+
+%% --------------------------------------------------- paragraf dan spasi
+\setlength{\parindent}{1.5cm}   %% awal alinea menjorok +-1,5 cm (12 ketukan)
+\setlength{\parskip}{0pt}
+\doublespacing                  %% isi alinea: spasi 2
+\raggedbottom
+
+%% ------------------------------------------------------- perataan paragraf
+%% TeX Live Basic tidak memuat pola pemenggalan kata bahasa Indonesia, jadi
+%% paragraf justify diberi toleransi lebih longgar agar tidak berlubang.
+\tolerance=2000
+\emergencystretch=3em
+
+%% ------------------------------------------------- judul tabel/gambar/grafik
+\captionsetup{%
+  font={normalsize,bf},   %% 12 pt, bold
+  labelsep=space,
+  justification=centering,
+  singlelinecheck=false,  %% selalu rata tengah walau caption pendek
+  skip=8pt
+}
+
+%% ------------------------------------------------------- judul bab/subbab
+\makeatletter
+\renewcommand\@makechapterhead[1]{%
+  {\singlespacing\centering\bfseries
+   \ifnum\c@secnumdepth>\m@ne
+     \@chapapp\space\thechapter\par\nobreak\vspace{1\baselineskip}%
+   \fi
+   \MakeUppercase{#1}\par}%
+  \vspace{2\baselineskip}%
+}
+\renewcommand\@makeschapterhead[1]{%
+  {\singlespacing\centering\bfseries\MakeUppercase{#1}\par}%
+  \vspace{2\baselineskip}%
+}
+%% Judul sub bab: 12 pt, Capitalize Each Word, bold, rata kiri-kanan, spasi 2.
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+  {-3.5ex \@plus -1ex \@minus -.2ex}%
+  {2.3ex \@plus .2ex}%
+  {\normalfont\normalsize\bfseries\setstretch{2}}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+  {-3.25ex \@plus -1ex \@minus -.2ex}%
+  {1.5ex \@plus .2ex}%
+  {\normalfont\normalsize\bfseries\setstretch{2}}}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+  {-3.25ex \@plus -1ex \@minus -.2ex}%
+  {1.5ex \@plus .2ex}%
+  {\normalfont\normalsize\bfseries\itshape\setstretch{2}}}
+\makeatother
+
+%% ----------------------------------------------------------- nomor halaman
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}              %% nomor di tengah bawah
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{plain}{%      %% halaman pembuka bab: tetap tanpa header
+  \fancyhf{}\cfoot{\thepage}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0pt}}
+
+%% ------------------------------------------------------- float "grafik"
+%% Grafik (chart/plot) punya daftar tersendiri: Daftar Grafik.
+%% Penomoran per bab: Grafik 4.1, Grafik 4.2, ...
+\newfloat{grafik}{htbp}{lofg}[chapter]
+\floatname{grafik}{Grafik}
+
+%% -------------------------------------------- daftar isi dan daftar lain
+\makeatletter
+\renewcommand*\l@chapter[2]{\@dottedtocline{0}{0em}{1.6em}{#1}{#2}}
+\renewcommand*\l@section[2]{\@dottedtocline{1}{1.6em}{2.4em}{#1}{#2}}
+\renewcommand*\l@subsection[2]{\@dottedtocline{2}{4em}{3.2em}{#1}{#2}}
+\newcommand*\l@lampiran[2]{\@dottedtocline{0}{0em}{6.5em}{#1}{#2}}
+\makeatother
+
+\makeatletter
+%% Halaman bab tanpa nomor (Kata Pengantar, Daftar Isi, ...) + entri daftar isi.
+\newcommand*\babfrontmatter[1]{%
+  \chapter*{#1}%
+  \addcontentsline{toc}{chapter}{#1}%
+}
+
+%% Daftar isi dan daftar-daftar: spasi 1,5 (Pedoman Bab 4.1).
+\newcommand*\daftarisi{%
+  \begingroup\setstretch{1.5}%
+    \chapter*{\contentsname}%
+    \addcontentsline{toc}{chapter}{\contentsname}%
+    \@starttoc{toc}%
+  \endgroup\clearpage}
+\newcommand*\daftartabel{%
+  \begingroup\setstretch{1.5}%
+    \listoftables
+    \addcontentsline{toc}{chapter}{\listtablename}%
+  \endgroup\clearpage}
+\newcommand*\daftargrafik{%
+  \begingroup\setstretch{1.5}%
+    \listof{grafik}{Daftar Grafik}%
+    \addcontentsline{toc}{chapter}{Daftar Grafik}%
+  \endgroup\clearpage}
+\newcommand*\daftargambar{%
+  \begingroup\setstretch{1.5}%
+    \listoffigures
+    \addcontentsline{toc}{chapter}{\listfigurename}%
+  \endgroup\clearpage}
+\newcommand*\daftarlampiran{%
+  \begingroup\setstretch{1.5}%
+    \chapter*{Daftar Lampiran}%
+    \addcontentsline{toc}{chapter}{Daftar Lampiran}%
+    \@starttoc{lmp}%
+  \endgroup\clearpage}
+\makeatother
+
+%% Judul satu lampiran + catat ke Daftar Lampiran.
+%% Pakai: \lampiranentry{Lampiran 1. Kode Program}
+\newcommand*\lampiranentry[1]{%
+  \par\addvspace{1.5\baselineskip}%
+  {\singlespacing\bfseries #1\par}%
+  \addvspace{0.5\baselineskip}%
+  \addcontentsline{lmp}{lampiran}{#1}%
+}
+
+%% --------------------------------------------------- daftar singkatan
+%% Spasi 1,5; kolom singkatan selebar 3,6 cm lalu keterangan menggantung.
+\newenvironment{daftarsingkatan}%
+  {\setstretch{1.5}\par\begingroup\setlength{\parindent}{0pt}}%
+  {\par\endgroup}
+\newcommand*\singkatan[2]{%
+  \par\noindent\hangindent=3.8cm \hangafter=1
+  \makebox[3.6cm][l]{\textbf{#1}}#2\par}
+
+%% ------------------------------------------------------------ istilah asing
+\newcommand*\asing[1]{\textit{#1}}
+
+%% ------------------------------------------------------------- kode program
+\lstset{%
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  showstringspaces=false,
+  columns=fullflexible,
+  frame=single,
+  captionpos=b
+}
+
+%% ------------------------------------------------------------------ sampul
+%% Dipakai oleh frontmatter/sampul.tex dan frontmatter/halaman-judul.tex
+%% (isi keduanya identik). Semua rata tengah, spasi 1.
+\newcommand*\BuatSampul{%
+  \begin{singlespace}%
+  \thispagestyle{empty}%
+  \begin{center}%
+    {\bfseries\fontsize{16}{19}\selectfont LAPORAN MAGANG\par}%
+    \vspace{2\baselineskip}%
+    {\bfseries\fontsize{14}{17}\selectfont
+      \begin{minipage}{0.82\textwidth}\centering\JudulLaporan\end{minipage}\par}%
+    \vspace{2\baselineskip}%
+    \includegraphics[width=5cm,height=5cm,keepaspectratio]{\LogoKampus}\par%
+    \vspace{2\baselineskip}%
+    {\bfseries\fontsize{12}{14}\selectfont Oleh :\par}%
+    \vspace{0.5\baselineskip}%
+    {\bfseries\fontsize{12}{14}\selectfont\MakeUppercase{\NamaPenulis}\par}%
+    {\bfseries\fontsize{12}{14}\selectfont\NIMLine\par}%
+    \vfill
+    {\bfseries\fontsize{14}{17}\selectfont\MakeUppercase{\ProgramStudi}\par}%
+    {\bfseries\fontsize{14}{17}\selectfont\MakeUppercase{\NamaKampus}\par}%
+    \vspace{1\baselineskip}%
+    {\bfseries\fontsize{12}{14}\selectfont\Kota\par}%
+    {\bfseries\fontsize{12}{14}\selectfont\Tahun\par}%
+  \end{center}%
+  \end{singlespace}%
+  \clearpage}
+
+\endinput
+%%  Akhir laporan.sty
+%% ===========================================================================
+

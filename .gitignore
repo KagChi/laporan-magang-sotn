@@ -1,0 +1,20 @@
+# Hasil build LaTeX
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.lmp
+*.lof
+*.lofg
+*.log
+*.lot
+*.out
+*.toc
+*.xdv
+*.synctex.gz
+*.pdf
+
+# macOS
+.DS_Store
+

@@ -1,0 +1,62 @@
+% !TEX program = xelatex
+%% ===========================================================================
+%%  main.tex — Laporan Magang
+%%  Program Studi Sistem Informasi — STMIK Kuwera
+%%
+%%  Kompilasi : make            (XeLaTeX via latexmk, sekaligus BibTeX)
+%%  Identitas : config/metadata.tex
+%%  Gaya      : laporan.sty  (Pedoman Bab 4.1 dan 4.3)
+%% ===========================================================================
+\documentclass[12pt,a4paper,oneside]{report}
+
+\usepackage{laporan}
+\input{config/metadata}
+
+\hypersetup{%
+  pdftitle   = {\JudulLaporanPDF},%
+  pdfauthor  = {\NamaPenulis},%
+  pdfsubject = {Laporan Magang \ProgramStudi{} \NamaKampus}%
+}
+
+\begin{document}
+
+%% --------------------------------------------------- BAGIAN AWAL (Romawi)
+%% Sampul dan Halaman Judul: tanpa nomor halaman dan tidak dihitung.
+%% Keduanya memang memakai isi yang sama (Pedoman Bab 4.3: "Halaman Judul
+%% (isi sama dengan sampul)"): Sampul dicetak di kertas hijau daun sebagai
+%% bagian luar, Halaman Judul di kertas biasa sebagai halaman pertama di
+%% dalam jilidan. Bila prodi Anda hanya meminta satu halaman sampul,
+%% hapus/komentari baris \input{frontmatter/halaman-judul} di bawah.
+%% (Angka Romawi besar dipakai di sini hanya agar penanda halaman PDF tidak
+%%  bentrok dengan angka Romawi kecil milik bagian awal.)
+\pagenumbering{Roman}
+\input{frontmatter/sampul}
+\input{frontmatter/halaman-judul}
+
+%% Angka Romawi dihitung mulai Lembar Pengesahan: i, ii, iii, ...
+\pagenumbering{roman}
+\input{frontmatter/lembar-pengesahan}
+\input{frontmatter/kata-pengantar}
+\input{frontmatter/abstrak}
+\input{frontmatter/daftar-isi}
+\input{frontmatter/daftar-tabel}
+\input{frontmatter/daftar-grafik}
+\input{frontmatter/daftar-gambar}
+\input{frontmatter/daftar-singkatan}
+\input{frontmatter/daftar-lampiran}
+
+%% ---------------------------------------------------- BAGIAN UTAMA (Arab)
+\pagenumbering{arabic}
+\input{chapters/bab1-pendahuluan}
+\input{chapters/bab2-dasar-pemikiran}
+\input{chapters/bab3-profil-organisasi}
+\input{chapters/bab4-pembahasan}
+\input{chapters/bab5-refleksi-diri}
+\input{chapters/bab6-kesimpulan}
+
+%% ----------------------------------- BAGIAN AKHIR (melanjutkan angka Arab)
+\input{backmatter/daftar-pustaka}
+\input{backmatter/lampiran}
+
+\end{document}
+
