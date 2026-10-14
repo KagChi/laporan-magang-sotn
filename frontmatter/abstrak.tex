@@ -7,39 +7,40 @@
 \babfrontmatter{Abstrak}
 
 \begin{singlespace}
-Penulisan karya ilmiah dengan bantuan \asing{large language model} (LLM)
-menghadapi dua kelemahan yang berulang: sitasi yang dikarang dan penyuntingan
-naskah yang berjalan tanpa sepengetahuan penulis. Laporan magang ini
-menyajikan perancangan dan implementasi sistem penulisan riset berbantuan AI
-yang dijalankan secara lokal pada komputer peneliti. Jawaban sistem hanya
-bersumber pada dokumen yang dikumpulkan peneliti, sitasi hanya sah bila
-terverifikasi terhadap pustaka lokal, dan draf tidak pernah masuk ke naskah
-tanpa persetujuan manusia.
+Pemanfaatan \asing{large language model} (LLM) dalam penulisan karya ilmiah
+menghadapi dua persoalan utama, yaitu sitasi yang tidak berdasar dan
+penyuntingan naskah yang berlangsung tanpa persetujuan penulis. Laporan
+magang ini menyajikan perancangan dan implementasi sistem penulisan riset
+berbantuan kecerdasan buatan yang dijalankan secara lokal pada komputer
+peneliti. Sistem hanya menyusun jawaban berdasarkan dokumen yang dihimpun
+peneliti, mengakui keabsahan sitasi hanya apabila terverifikasi pada pustaka
+lokal, dan tidak pernah memasukkan draf ke dalam naskah tanpa persetujuan
+manusia.
 
-Sistem memadukan antarmuka web React, layanan \asing{backend} FastAPI dengan
-sebelas perute API, basis data SQLite untuk data terstruktur, dan penyimpanan
-vektor Chroma untuk potongan sumber setiap proyek. Dokumen sumber dicacah,
-diubah menjadi vektor \asing{embedding}, dan disimpan, lalu dipakai pada tahap
-pengambilan konteks. Percakapan berjalan dalam tiga mode: \asing{Ask} menjawab
-pertanyaan
-dari potongan sumber yang ditemukan dan menandai jawaban yang tidak berdasar,
-\asing{Plan} hanya menyusun kerangka tanpa menulis naskah, dan \asing{Build}
-menyusun draf bagian dari sumber. Konteks yang dikirim ke model dibatasi pada
-potongan hasil pengambilan, ringkasan memori percakapan, dan konteks yang
-disematkan peneliti. Alur revisi agen memetakan instruksi ke bagian naskah
-melalui judul, alias, dan batas kata, lalu menggagalkan instruksi yang ambigu
-alih-alih menebak. Setiap sitasi pada teks hasil revisi wajib terverifikasi
-pada pustaka lokal yang bersumber dari OpenAlex, sehingga sitasi yang gagal
-ditolak atau ditandai. Peneliti memutuskan menerima atau membuang setiap
-usulan revisi. Naskah akhir diekspor sebagai berkas LaTeX beserta daftar
-pustakanya dan disinkronkan dua arah dengan repositori GitHub untuk setiap
-proyek. Pengujian dirancang dalam tiga skenario: keberpijakan sitasi,
-ketepatan penargetan bagian naskah, dan ketepatan putaran ekspor serta
-sinkronisasi.
+Sistem memadukan antarmuka web berbasis React, layanan \asing{backend}
+FastAPI, basis data SQLite untuk data terstruktur, serta penyimpanan vektor
+Chroma untuk potongan sumber setiap proyek. Dokumen sumber dipecah menjadi
+potongan, diubah menjadi vektor \asing{embedding}, disimpan, dan digunakan
+pada tahap pengambilan konteks. Percakapan berlangsung dalam tiga mode: mode
+\asing{Ask} menjawab pertanyaan berdasarkan potongan sumber yang ditemukan
+dan menandai jawaban yang tidak berdasar sumber; mode \asing{Plan} hanya
+menyusun kerangka tanpa menyunting naskah; dan mode \asing{Build} menyusun
+draf bagian berdasarkan sumber. Konteks yang dikirimkan kepada model dibatasi
+pada potongan hasil pengambilan, ringkasan memori percakapan, dan konteks yang
+dipilih peneliti. Alur revisi berbasis agen memetakan instruksi kepada bagian
+naskah yang dituju berdasarkan judul, alias, dan batas kata, sedangkan
+instruksi yang ambigu tidak dijalankan. Setiap sitasi pada teks hasil revisi
+wajib terverifikasi pada pustaka lokal yang bersumber dari OpenAlex sehingga
+sitasi yang tidak terverifikasi ditolak atau ditandai. Peneliti memutuskan
+untuk menerima atau menolak setiap usulan revisi. Naskah akhir diekspor
+sebagai berkas LaTeX beserta daftar pustaka dan disinkronkan secara dua arah
+dengan repositori GitHub setiap proyek. Pengujian dirancang dalam tiga
+skenario, yaitu keabsahan sitasi terhadap sumber, ketepatan penentuan bagian
+naskah, dan ketepatan ekspor serta sinkronisasi.
 % TODO: tambahkan angka hasil pengujian bila sudah tersedia.
 
 \vspace{1\baselineskip}
-\textbf{Kata kunci:} penulisan riset berbantuan AI, \asing{retrieval-augmented
-generation}, verifikasi sitasi, \asing{human-in-the-loop}, OpenAlex,
-\asing{large language model}
+\textbf{Kata kunci:} penulisan riset berbantuan kecerdasan buatan,
+\asing{retrieval-augmented generation}, verifikasi sitasi,
+\asing{human-in-the-loop}, OpenAlex, \asing{large language model}
 \end{singlespace}
