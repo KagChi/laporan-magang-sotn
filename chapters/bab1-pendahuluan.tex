@@ -7,19 +7,172 @@
 \chapter{Pendahuluan}
 
 \section{Latar Belakang}
-% TODO: latar belakang masalah dan alasan penyusunan laporan magang ini.
+
+Kecerdasan buatan berbasis \asing{large language model} telah mengubah cara
+peneliti mencari dan menyusun bahan tulisan. Model tersebut mampu merangkum
+puluhan halaman dalam hitungan detik dan menawarkan susunan argumen yang belum
+terpikirkan oleh penulis. Kemampuan itu membuat model bahasa besar banyak
+dipakai sebagai pendamping dalam penyusunan karya ilmiah, mulai dari pencarian
+rujukan sampai penyuntingan kalimat. Kemudahan tersebut, bagaimanapun, membawa
+persoalan baru yang tidak selalu tampak pada hasil akhir.
+
+Persoalan pertama adalah sitasi yang tidak dapat dipertanggungjawabkan. Model
+bahasa besar menyusun jawaban berdasarkan pola yang dipelajarinya, sehingga
+rujukan yang dihasilkan dapat tampak meyakinkan tanpa benar-benar merujuk pada
+karya yang ada. \citet{ji2023survey} mengelompokkan kekeliruan semacam itu
+sebagai halusinasi, yaitu keluaran yang lancar dibaca tetapi tidak sesuai dengan
+sumber maupun fakta. \citet{walters2023fabrication} menguji sitasi yang
+dihasilkan salah satu model percakapan dan menemukan bahwa sebagian besar di
+antaranya tidak akurat, baik karena karyanya tidak ditemukan maupun karena
+rincian penulis, tahun, dan terbitannya keliru. Temuan tersebut menunjukkan
+bahwa kelancaran bahasa tidak menjamin ketepatan rujukan.
+
+Persoalan kedua menyangkut kendali penulis atas naskahnya sendiri. Alat bantu
+menulis yang bekerja langsung pada dokumen dapat mengganti kalimat tanpa
+memberi tahu bagian mana yang berubah. Penulis kemudian harus membandingkan
+naskah lama dan naskah baru secara manual untuk mengetahui letak perubahannya.
+\citet{amershi2019guidelines} menekankan bahwa sistem berbantuan kecerdasan
+buatan perlu bersikap terbuka terhadap tindakan pengguna dan menyediakan cara
+yang mudah untuk membatalkan perubahan. Tanpa prinsip tersebut, bantuan yang
+dimaksudkan mempercepat pekerjaan justru menambah beban pemeriksaan.
+
+Pendekatan yang banyak dipakai untuk menekan halusinasi adalah
+\asing{retrieval-augmented generation}. \citet{lewis2020retrieval} merancang
+pendekatan ini dengan mengambil dokumen yang relevan terlebih dahulu, lalu
+menyusun jawaban berdasarkan dokumen tersebut. \citet{gao2023retrieval}
+menjelaskan bahwa mutu jawaban pada pendekatan ini sangat ditentukan oleh
+ketepatan tahap pengambilan sumber. Namun, sebagian besar implementasi yang
+tersedia masih menempatkan dokumen peneliti pada layanan awan dan belum
+membedakan tahap perencanaan dari tahap penulisan naskah. Pemisahan tahap itu
+penting agar peneliti dapat menilai rencana tulisan sebelum ada kalimat yang
+masuk ke dalam dokumen.
+
+Kebutuhan tersebut muncul secara nyata di Broadband Multimedia Wireless
+Laboratory, National Taiwan University of Science and Technology. Laboratorium
+ini mengerjakan penelitian di bidang jaringan nirkabel dan multimedia, sehingga
+setiap anggota tim mengelola banyak artikel, laporan, dan catatan percobaan
+secara bersamaan. Peneliti perlu menelusuri kembali sumber yang pernah dibaca,
+memastikan bahwa rujukan yang dipakai benar-benar ada, dan menjaga agar naskah
+yang sedang disusun tidak berubah tanpa sepengetahuan mereka. Pekerjaan
+penelusuran semacam itu menyita waktu yang seharusnya dapat dipakai untuk
+menguji gagasan dan menganalisis hasil.
+
+Berdasarkan keadaan tersebut, selama pelaksanaan magang dirancang dan
+diimplementasikan sebuah sistem pencarian data riset berbantuan kecerdasan
+buatan yang dijalankan pada komputer peneliti. Sistem ini mencari bagian
+dokumen yang relevan dengan pertanyaan peneliti, lalu menyusun jawaban hanya
+dari bagian yang ditemukan. Sistem menyediakan tiga cara kerja, yaitu menjawab
+pertanyaan, menyusun kerangka, dan menyusun draf bagian naskah. Setiap usulan
+perubahan harus disetujui peneliti sebelum dimasukkan ke dalam naskah, dan
+setiap sitasi diperiksa terhadap pustaka yang tersimpan pada proyek.
+
+Sistem yang dibangun juga mencatat asal setiap potongan sumber sehingga jawaban
+dapat ditelusuri kembali. Pencatatan ini penting karena peneliti tidak cukup
+mempercayai jawaban yang terbaca lancar; mereka perlu mengetahui dari dokumen
+mana sebuah pernyataan berasal. Naskah yang telah disetujui diekspor dalam
+format LaTeX beserta daftar pustakanya, lalu disinkronkan dengan repositori
+proyek pada GitHub. Dengan demikian, riwayat perubahan naskah tetap terekam dan
+dapat diperiksa oleh pembimbing maupun rekan tim.
+
+Laporan magang ini merekam perancangan, implementasi, dan evaluasi sistem
+tersebut sebagai bagian dari pelaksanaan magang pada periode 12 Januari sampai
+28 September 2026. Laporan disusun mengikuti Pedoman Penulisan Laporan Magang
+STMIK Kuwera agar dapat dipertanggungjawabkan secara akademik. Susunan bab
+disesuaikan dengan urutan yang ditetapkan pedoman, mulai dari dasar pemikiran
+sampai kesimpulan. Selain menjadi dokumen pertanggungjawaban, laporan ini
+diharapkan menjadi rujukan bagi mahasiswa yang akan mengerjakan pekerjaan
+serupa pada periode berikutnya.
 
 \section{Tujuan Magang}
-% TODO: tujuan pelaksanaan magang, boleh berupa daftar bernomor.
+
+Magang dilaksanakan untuk menghubungkan pengetahuan yang diperoleh di bangku
+kuliah dengan pekerjaan nyata di lingkungan laboratorium riset. Penulis
+ditempatkan pada pekerjaan pengembangan perangkat lunak yang menopang kegiatan
+penelitian, sehingga dapat mengamati langsung bagaimana kebutuhan peneliti
+diterjemahkan menjadi fitur sistem. Penempatan tersebut juga memberi kesempatan
+kepada penulis untuk menguji keputusan rancangan pada pengguna yang sebenarnya.
+Tujuan umum tersebut dijabarkan menjadi beberapa tujuan khusus sebagai berikut.
+
+\begin{enumerate}
+  \item Merancang sistem pencarian data riset berbantuan kecerdasan buatan yang
+        dijalankan secara lokal pada komputer peneliti.
+  \item Mengimplementasikan pencarian dokumen sumber sehingga jawaban yang
+        dihasilkan dapat ditelusuri kembali kepada bagian asalnya.
+  \item Mengimplementasikan verifikasi sitasi terhadap pustaka lokal yang
+        tersimpan pada setiap proyek penelitian.
+  \item Mengimplementasikan alur revisi yang menempatkan persetujuan peneliti
+        sebagai syarat sebelum naskah berubah.
+  \item Menguji ketepatan sumber, ketepatan penentuan bagian naskah, serta
+        keberhasilan ekspor dan sinkronisasi naskah.
+\end{enumerate}
+
+Melalui kelima tujuan tersebut, magang diarahkan pada satu hasil yang utuh,
+yaitu perangkat lunak yang dapat dipakai dalam pekerjaan penulisan sehari-hari.
+Setiap tujuan memiliki ukuran keberhasilan yang diperiksa pada tahap pengujian.
+Penulis juga mencatat kendala yang muncul selama pengerjaan agar dapat dijadikan
+bahan perbaikan pada pengembangan berikutnya.
 
 \section{Manfaat Magang}
-% TODO: satu alinea pengantar, lalu rincian pada tiga subbagian di bawah.
+
+Pelaksanaan magang memberikan manfaat bagi tiga pihak yang terlibat, yaitu
+peserta magang, program studi, dan instansi tujuan magang. Manfaat tersebut
+tidak berdiri sendiri, melainkan saling berkaitan sebagai hasil dari pekerjaan
+yang sama. Peserta magang memperoleh pengalaman kerja, program studi memperoleh
+contoh penerapan ilmu, dan instansi memperoleh perangkat yang membantu
+pekerjaannya. Uraian berikut menjelaskan bentuk manfaat pada masing-masing
+pihak.
 
 \subsection{Manfaat bagi Peserta Magang}
-% TODO: manfaat yang dirasakan mahasiswa.
+
+Manfaat utama bagi peserta magang adalah pengalaman mengerjakan perangkat
+lunak dari tahap perancangan sampai pengujian. Penulis belajar menerjemahkan
+kebutuhan pengguna yang masih umum menjadi rancangan fitur yang dapat
+dikerjakan. Penulis juga berlatih menulis kode, membaca kesalahan, dan
+memperbaiki sistem yang sudah berjalan tanpa mengganggu data pengguna.
+Pengalaman tersebut tidak diperoleh hanya dari membaca buku, karena setiap
+keputusan harus diuji pada pemakaian yang sebenarnya.
+
+Selain keterampilan teknis, magang melatih cara berkomunikasi dengan peneliti
+yang menjadi pengguna sistem. Penulis belajar menanyakan kebutuhan dengan
+pertanyaan yang tepat dan menjelaskan keputusan teknis tanpa memakai istilah
+yang membingungkan. Pengalaman ini menumbuhkan kebiasaan mendokumentasikan
+pekerjaan agar dapat dilanjutkan oleh orang lain. Penulis juga memperoleh
+gambaran mengenai budaya kerja penelitian di laboratorium universitas luar
+negeri.
 
 \subsection{Manfaat bagi Program Studi}
-% TODO: manfaat bagi \ProgramStudi{} \NamaKampus.
+
+Bagi Program Studi Sistem Informasi, magang ini menghasilkan contoh penerapan
+ilmu sistem informasi pada pekerjaan penelitian. Kasus yang dikerjakan
+memperlihatkan bahwa analisis kebutuhan, perancangan basis data, dan
+pengembangan antarmuka tidak hanya dipakai pada sistem bisnis, tetapi juga pada
+perangkat pendukung riset. Contoh tersebut dapat dipakai sebagai bahan
+pembelajaran pada mata kuliah yang relevan. Dengan begitu, materi kuliah
+memperoleh gambaran penerapan yang dekat dengan pekerjaan lulusan.
+
+Magang ini juga memperluas jejaring kerja sama program studi dengan institusi
+pendidikan di luar negeri. Hubungan yang terbentuk selama periode magang dapat
+dimanfaatkan untuk kegiatan pertukaran mahasiswa maupun kerja sama penelitian
+pada masa berikutnya. Pengalaman penulis selama mengikuti program tersebut
+dapat dibagikan kepada mahasiswa lain sebagai gambaran dunia kerja di bidang
+tersebut. Program studi memperoleh masukan mengenai kemampuan yang perlu
+diperkuat pada mahasiswa yang berminat bekerja di bidang riset.
 
 \subsection{Manfaat bagi Instansi Tujuan Magang}
-% TODO: manfaat bagi \InstansiMagang.
+
+Bagi Broadband Multimedia Wireless Laboratory, magang ini menghasilkan
+perangkat lunak yang membantu anggota laboratorium mengelola bahan penelitian.
+Sistem yang dibangun menyimpan dokumen sumber pada komputer peneliti dan
+memungkinkan penelusuran kembali bagian yang relevan dengan pertanyaan. Dengan
+demikian, waktu yang biasa dipakai untuk mencari ulang dokumen dapat dialihkan
+ke pekerjaan analisis. Perangkat tersebut juga dapat dipakai oleh anggota baru
+yang sedang mempelajari topik penelitian laboratorium.
+
+Laboratorium juga memperoleh alur kerja yang mencatat persetujuan peneliti
+sebelum naskah berubah. Pencatatan tersebut memudahkan peninjauan bersama antara
+anggota tim dan pembimbing, karena setiap perubahan dapat ditelusuri. Selain
+itu, sistem menyimpan naskah beserta daftar pustakanya pada repositori proyek,
+sehingga riwayat penyusunan dokumen tetap tersedia setelah mahasiswa magang
+menyelesaikan periodenya. Hasil kerja ini menjadi titik awal bagi pengembangan
+perangkat serupa pada proyek penelitian berikutnya.
+

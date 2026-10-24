@@ -58,7 +58,7 @@
 \renewcommand\@makechapterhead[1]{%
   {\singlespacing\centering\bfseries
    \ifnum\c@secnumdepth>\m@ne
-     \@chapapp\space\thechapter\par\nobreak\vspace{1\baselineskip}%
+     \MakeUppercase{\@chapapp}\space\thechapter\par\nobreak\vspace{1\baselineskip}%
    \fi
    \MakeUppercase{#1}\par}%
   \vspace{2\baselineskip}%
