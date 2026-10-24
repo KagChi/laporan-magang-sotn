@@ -7,40 +7,34 @@
 \babfrontmatter{Abstrak}
 
 \begin{singlespace}
-Pemanfaatan \asing{large language model} (LLM) dalam penulisan karya ilmiah
-menghadapi dua persoalan utama, yaitu sitasi yang tidak berdasar dan
-penyuntingan naskah yang berlangsung tanpa persetujuan penulis. Laporan
-magang ini menyajikan perancangan dan implementasi sistem penulisan riset
-berbantuan kecerdasan buatan yang dijalankan secara lokal pada komputer
-peneliti. Sistem hanya menyusun jawaban berdasarkan dokumen yang dihimpun
-peneliti, mengakui keabsahan sitasi hanya apabila terverifikasi pada pustaka
-lokal, dan tidak pernah memasukkan draf ke dalam naskah tanpa persetujuan
-manusia.
+Pemanfaatan kecerdasan buatan dalam penulisan karya ilmiah menghadapi dua
+persoalan yang saling berkaitan, yaitu sistem dapat menyebut sumber yang tidak
+benar-benar ada dan mengubah naskah tanpa sepengetahuan penulis. Kedua
+persoalan tersebut membuat hasil bantuan sulit dipertanggungjawabkan. Karena
+itu, laporan magang ini membahas perancangan dan implementasi sistem pencarian
+data riset berbantuan kecerdasan buatan yang dijalankan pada komputer peneliti.
+Dengan dijalankan secara lokal, dokumen tetap berada dalam kendali peneliti.
+Sistem mencari bagian dokumen yang relevan dengan pertanyaan, lalu menyusun
+jawaban hanya dari bagian tersebut. Dengan cara itu, setiap jawaban dapat
+ditelusuri kembali kepada sumbernya.
 
-Sistem memadukan antarmuka web berbasis React, layanan \asing{backend}
-FastAPI, basis data SQLite untuk data terstruktur, serta penyimpanan vektor
-Chroma untuk potongan sumber setiap proyek. Dokumen sumber dipecah menjadi
-potongan, diubah menjadi vektor \asing{embedding}, disimpan, dan digunakan
-pada tahap pengambilan konteks. Percakapan berlangsung dalam tiga mode: mode
-\asing{Ask} menjawab pertanyaan berdasarkan potongan sumber yang ditemukan
-dan menandai jawaban yang tidak berdasar sumber; mode \asing{Plan} hanya
-menyusun kerangka tanpa menyunting naskah; dan mode \asing{Build} menyusun
-draf bagian berdasarkan sumber. Konteks yang dikirimkan kepada model dibatasi
-pada potongan hasil pengambilan, ringkasan memori percakapan, dan konteks yang
-dipilih peneliti. Alur revisi berbasis agen memetakan instruksi kepada bagian
-naskah yang dituju berdasarkan judul, alias, dan batas kata, sedangkan
-instruksi yang ambigu tidak dijalankan. Setiap sitasi pada teks hasil revisi
-wajib terverifikasi pada pustaka lokal yang bersumber dari OpenAlex sehingga
-sitasi yang tidak terverifikasi ditolak atau ditandai. Peneliti memutuskan
-untuk menerima atau menolak setiap usulan revisi. Naskah akhir diekspor
-sebagai berkas LaTeX beserta daftar pustaka dan disinkronkan secara dua arah
-dengan repositori GitHub setiap proyek. Pengujian dirancang dalam tiga
-skenario, yaitu keabsahan sitasi terhadap sumber, ketepatan penentuan bagian
-naskah, dan ketepatan ekspor serta sinkronisasi.
+Selain menjawab pertanyaan, sistem menyediakan dua cara kerja lain, yaitu
+menyusun kerangka dan menyusun draf bagian naskah. Pada kedua cara kerja
+tersebut, peneliti tetap menentukan bagian yang akan diubah. Sistem memetakan
+permintaan peneliti kepada bagian naskah berdasarkan judul dan batas kata.
+Apabila permintaan dinilai ambigu, sistem tidak menjalankan perubahan. Setiap
+sumber yang dikutip diperiksa terhadap pustaka yang tersimpan, sehingga kutipan
+yang tidak ditemukan ditolak atau ditandai. Peneliti kemudian menerima atau
+menolak setiap usulan perubahan. Setelah itu, naskah diekspor dalam format
+LaTeX beserta daftar pustaka dan disinkronkan dengan repositori proyek pada
+GitHub. Pengujian dilakukan pada tiga hal, yaitu ketepatan sumber, ketepatan
+bagian naskah yang diubah, serta keberhasilan ekspor dan sinkronisasi. Rancangan
+pengujian tersebut diarahkan untuk memastikan bahwa bantuan kecerdasan buatan
+dapat digunakan secara terkendali dalam penulisan riset.
 % TODO: tambahkan angka hasil pengujian bila sudah tersedia.
 
 \vspace{1\baselineskip}
-\textbf{Kata kunci:} penulisan riset berbantuan kecerdasan buatan,
-\asing{retrieval-augmented generation}, verifikasi sitasi,
-\asing{human-in-the-loop}, OpenAlex, \asing{large language model}
+\textbf{Kata kunci:} pencarian data riset, penulisan riset berbantuan
+kecerdasan buatan, verifikasi sitasi, keterlibatan manusia,
+\asing{large language model}
 \end{singlespace}
