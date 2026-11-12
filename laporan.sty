@@ -26,6 +26,13 @@
 \RequirePackage{listings}
 \RequirePackage{indentfirst}
 \RequirePackage{natbib}
+\RequirePackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,fit}
+%% label sitasi nama-tahun berbahasa Indonesia: dua penulis dipisah "dan",
+%% lebih dari dua memakai "dkk." (bukan "dkk." ala apalike Inggris)
+\AtBeginDocument{%
+  \renewcommand{\harvardand}{dan}%
+}
 \RequirePackage[normalem]{ulem}   %% garis bawah nama penanda tangan (boleh pindah baris)
 \RequirePackage[hidelinks]{hyperref}
 
@@ -39,8 +46,11 @@
 \raggedbottom
 
 %% ------------------------------------------------------- perataan paragraf
-%% TeX Live Basic tidak memuat pola pemenggalan kata bahasa Indonesia, jadi
-%% paragraf justify diberi toleransi lebih longgar agar tidak berlubang.
+%% Pola pemenggalan kata bahasa Indonesia dipasang di tingkat pengguna
+%% (lihat README) karena TeX Live Basic tidak memuatnya. Tanpa pola itu,
+%% TeX memakai pola bahasa Inggris dan menghasilkan potongan salah seperti
+%% "kemuda-han". Paragraf justify diberi toleransi lebih longgar agar tidak
+%% berlubang.
 \tolerance=2000
 \emergencystretch=3em
 
@@ -58,7 +68,7 @@
 \renewcommand\@makechapterhead[1]{%
   {\singlespacing\centering\bfseries
    \ifnum\c@secnumdepth>\m@ne
-     \@chapapp\space\thechapter\par\nobreak\vspace{1\baselineskip}%
+     \MakeUppercase{\@chapapp}\space\thechapter\par\nobreak\vspace{1\baselineskip}%
    \fi
    \MakeUppercase{#1}\par}%
   \vspace{2\baselineskip}%
@@ -146,7 +156,22 @@
 
 %% Judul satu lampiran + catat ke Daftar Lampiran.
 %% Pakai: \lampiranentry{Lampiran 1. Kode Program}
+\newcounter{lampiran}
+\renewcommand*\thelampiran{\arabic{lampiran}}
+%% Dipanggil sekali di awal bagian Lampiran: nomor tabel, gambar, dan grafik
+%% mengikuti nomor lampiran (Tabel 1.1, Gambar 2.1), bukan nomor bab terakhir.
+\newcommand*\lampiranaktif{%
+  \renewcommand*\thetable{\Alph{lampiran}.\arabic{table}}%
+  \renewcommand*\thefigure{\Alph{lampiran}.\arabic{figure}}%
+  \renewcommand*\thegrafik{\Alph{lampiran}.\arabic{grafik}}%
+  \renewcommand*\thelstlisting{\Alph{lampiran}.\arabic{lstlisting}}%
+}
 \newcommand*\lampiranentry[1]{%
+  \stepcounter{lampiran}%
+  \setcounter{table}{0}%
+  \setcounter{figure}{0}%
+  \setcounter{grafik}{0}%
+  \ifnum\value{lampiran}>1 \clearpage\fi
   \par\addvspace{1.5\baselineskip}%
   {\singlespacing\bfseries #1\par}%
   \addvspace{0.5\baselineskip}%
@@ -174,6 +199,7 @@
   frame=single,
   captionpos=b
 }
+\renewcommand*\lstlistingname{Kode}
 
 %% ------------------------------------------------------------------ sampul
 %% Dipakai oleh frontmatter/sampul.tex dan frontmatter/halaman-judul.tex
@@ -206,4 +232,3 @@
 \endinput
 %%  Akhir laporan.sty
 %% ===========================================================================
-

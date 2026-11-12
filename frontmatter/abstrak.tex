@@ -7,34 +7,36 @@
 \babfrontmatter{Abstrak}
 
 \begin{singlespace}
-Pemanfaatan kecerdasan buatan dalam penulisan karya ilmiah menghadapi dua
-persoalan yang saling berkaitan, yaitu sistem dapat menyebut sumber yang tidak
-benar-benar ada dan mengubah naskah tanpa sepengetahuan penulis. Kedua
-persoalan tersebut membuat hasil bantuan sulit dipertanggungjawabkan. Karena
-itu, laporan magang ini membahas perancangan dan implementasi sistem pencarian
-data riset berbantuan kecerdasan buatan yang dijalankan pada komputer peneliti.
-Dengan dijalankan secara lokal, dokumen tetap berada dalam kendali peneliti.
-Sistem mencari bagian dokumen yang relevan dengan pertanyaan, lalu menyusun
-jawaban hanya dari bagian tersebut. Dengan cara itu, setiap jawaban dapat
-ditelusuri kembali kepada sumbernya.
+Kegiatan penyusunan artikel di Broadband Multimedia Wireless Laboratory selalu
+diawali dengan pencarian rujukan yang sesuai dengan topik penelitian. Pencarian
+dengan kata kunci menghasilkan banyak artikel, tetapi artikel tersebut belum
+tentu relevan dengan konteks yang sedang dikerjakan. Karena itu, peneliti harus
+membaca dan menyaring abstraknya satu per satu. Penyaringan semacam itu menyita
+waktu, terlebih ketika peneliti harus membandingkan banyak sumber sebelum
+menentukan rujukan yang layak dipakai. Bantuan kecerdasan buatan sebenarnya
+dapat meringankan pekerjaan tersebut, tetapi keluaran model bahasa perlu
+dikendalikan agar tidak menyebut rujukan yang tidak benar-benar ada.
 
-Selain menjawab pertanyaan, sistem menyediakan dua cara kerja lain, yaitu
-menyusun kerangka dan menyusun draf bagian naskah. Pada kedua cara kerja
-tersebut, peneliti tetap menentukan bagian yang akan diubah. Sistem memetakan
-permintaan peneliti kepada bagian naskah berdasarkan judul dan batas kata.
-Apabila permintaan dinilai ambigu, sistem tidak menjalankan perubahan. Setiap
-sumber yang dikutip diperiksa terhadap pustaka yang tersimpan, sehingga kutipan
-yang tidak ditemukan ditolak atau ditandai. Peneliti kemudian menerima atau
-menolak setiap usulan perubahan. Setelah itu, naskah diekspor dalam format
-LaTeX beserta daftar pustaka dan disinkronkan dengan repositori proyek pada
-GitHub. Pengujian dilakukan pada tiga hal, yaitu ketepatan sumber, ketepatan
-bagian naskah yang diubah, serta keberhasilan ekspor dan sinkronisasi. Rancangan
-pengujian tersebut diarahkan untuk memastikan bahwa bantuan kecerdasan buatan
-dapat digunakan secara terkendali dalam penulisan riset.
-% TODO: tambahkan angka hasil pengujian bila sudah tersedia.
+Berdasarkan persoalan tersebut, laporan magang ini membahas perancangan dan
+implementasi sistem pencarian jurnal yang dijalankan pada komputer peneliti.
+Sistem mengambil bagian abstrak yang paling dekat dengan konteks penelitian,
+lalu menyusun penilaian kesesuaian hanya berdasarkan bagian tersebut. Setiap
+penilaian disertai kutipan bagian yang menjadi dasarnya, sehingga peneliti
+dapat memeriksa alasan sistem memilih suatu artikel. Artikel calon rujukan
+diambil dari OpenAlex dan \asing{IEEE Xplore}, lalu disimpan pada pustaka
+proyek agar sumbernya tetap terlacak. Peneliti tetap menentukan artikel yang
+akan digunakan, sedangkan sistem menyediakan bahan pertimbangan yang dapat
+ditelusuri.
+
+Pengujian dilakukan pada sejumlah skenario terbatas dengan menilai ketepatan
+artikel yang ditemukan. Sistem belum digunakan sepenuhnya dalam pekerjaan
+harian peneliti di laboratorium, sehingga hasil pengujian belum menggambarkan
+pemakaian dalam jangka panjang. Meskipun demikian, rancangan pengujian tersebut
+diarahkan agar bantuan kecerdasan buatan dapat dipakai secara terkendali dalam
+pemilihan rujukan penelitian.
 
 \vspace{1\baselineskip}
-\textbf{Kata kunci:} pencarian data riset, penulisan riset berbantuan
-kecerdasan buatan, verifikasi sitasi, keterlibatan manusia,
+\textbf{Kata kunci:} pencarian jurnal, kesesuaian rujukan,
+\asing{retrieval-augmented generation}, penulisan riset,
 \asing{large language model}
 \end{singlespace}

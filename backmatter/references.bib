@@ -1,23 +1,215 @@
 %% ===========================================================================
 %%  backmatter/references.bib — sumber Daftar Pustaka
-%%  Dua entri di bawah hanya contoh format; ganti dengan sumber Anda.
-%%  Sitasi di dalam teks: \citep{lamport1994latex} atau \citet{lamport1994latex}
+%%  Aturan: setiap entri wajib artikel asli dengan identitas lengkap
+%%  (penulis, judul, jurnal, volume(nomor), halaman, tahun, DOI) dan sudah
+%%  diverifikasi lewat OpenAlex. Sitasi di dalam teks: \citep{kunci} atau
+%%  \citet{kunci}.
+%%  Artikel jurnal harus terbit dalam empat tahun terakhir (2023--2026 untuk
+%%  laporan 2026). Entri yang lebih lama wajib diberi komentar alasannya.
 %% ===========================================================================
 
-@book{lamport1994latex,
-  author    = {Leslie Lamport},
-  title     = {LaTeX: A Document Preparation System},
-  edition   = {2},
-  year      = {1994},
-  publisher = {Addison-Wesley},
-  address   = {Reading, MA}
+@article{ji2023survey,
+  author  = {Ji, Ziwei and Lee, Nayeon and Frieske, Rita and Yu, Tiezheng and
+             Su, Dan and Xu, Yan and Ishii, Etsuko and Bang, Yejin and
+             Madotto, Andrea and Fung, Pascale},
+  title   = {Survey of Hallucination in Natural Language Generation},
+  journal = {ACM Computing Surveys},
+  volume  = {55},
+  number  = {12},
+  pages   = {1--38},
+  year    = {2023},
+  doi     = {10.1145/3571730}
 }
 
-@book{knuth1984texbook,
-  author    = {Donald E. Knuth},
-  title     = {The TeXbook},
-  year      = {1984},
-  publisher = {Addison-Wesley},
-  address   = {Reading, MA}
+@article{walters2023fabrication,
+  author  = {Walters, William H. and Wilder, Esther Isabelle},
+  title   = {Fabrication and Errors in the Bibliographic Citations Generated
+             by {ChatGPT}},
+  journal = {Scientific Reports},
+  volume  = {13},
+  number  = {1},
+  pages   = {14045},
+  year    = {2023},
+  doi     = {10.1038/s41598-023-41032-5}
+}
+
+%% TODO(pembimbing): prosiding 2019 ini lebih lama daripada jendela empat
+%% tahun (2023--2026), tetapi dipakai sebagai rujukan dasar pedoman interaksi
+%% manusia--AI, bukan sebagai temuan mutakhir. Pertahankan selama klaim di
+%% Bab 1 hanya merujuk asal pedoman tersebut.
+@inproceedings{amershi2019guidelines,
+  author    = {Amershi, Saleema and Weld, Dan and Vorvoreanu, Mihaela and
+               Fourney, Adam and Nushi, Besmira and Collisson, Penny and
+               Suh, Jina and Iqbal, Shamsi and Bennett, Paul N. and
+               Inkpen, Kori and Teevan, Jaime and Kikin-Gil, Ruth and
+               Horvitz, Eric},
+  title     = {Guidelines for Human-{AI} Interaction},
+  booktitle = {Proceedings of the 2019 CHI Conference on Human Factors in
+               Computing Systems},
+  pages     = {1--13},
+  year      = {2019},
+  publisher = {ACM},
+  doi       = {10.1145/3290605.3300233}
+}
+
+%% TODO(pembimbing): prosiding 2020 ini lebih lama daripada jendela empat
+%% tahun (2023--2026), tetapi dipakai sebagai rujukan dasar paper asal metode
+%% retrieval-augmented generation. Pertahankan selama klaim di Bab 1 hanya
+%% menyebut asal metode tersebut.
+@inproceedings{lewis2020retrieval,
+  author    = {Lewis, Patrick and Perez, Ethan and Piktus, Aleksandra and
+               Petroni, Fabio and Karpukhin, Vladimir and Goyal, Naman and
+               K{\"u}ttler, Heinrich and Lewis, Mike and Yih, Wen-tau and
+               Rockt{\"a}schel, Tim and Riedel, Sebastian and Kiela, Douwe},
+  title     = {Retrieval-Augmented Generation for Knowledge-Intensive {NLP}
+               Tasks},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {33},
+  pages     = {9459--9474},
+  year      = {2020}
+}
+
+%% Catatan: survei ini hanya tersedia sebagai preprint arXiv. Pemeriksaan
+%% OpenAlex dan Crossref (Oktober 2026) tidak menemukan versi jurnal, sehingga
+%% status preprint ditulis eksplisit pada medan journal dan DOI.
+@article{gao2023retrieval,
+  author  = {Gao, Yunfan and Xiong, Yun and Gao, Xinyu and Jia, Kangxiang and
+             Pan, Jinliu and Bi, Yuxi and Dai, Yi and Sun, Jiawei and
+             Wang, Meng and Wang, Haofen},
+  title   = {Retrieval-Augmented Generation for Large Language Models:
+             A Survey},
+  journal = {arXiv preprint arXiv:2312.10997},
+  year    = {2023},
+  doi     = {10.48550/arXiv.2312.10997}
+}
+
+%% --- Rujukan Indonesia (utama) -------------------------------------------
+
+@article{munawar2023manfaat,
+  author  = {Munawar, Zen and Soerjono, Herru and Putri, Novianti Indah and
+             Hernawati and Dwijayanti, Andina},
+  title   = {Manfaat Kecerdasan Buatan {ChatGPT} untuk Membantu Penulisan
+             Ilmiah},
+  journal = {TEMATIK},
+  volume  = {10},
+  number  = {1},
+  pages   = {54--60},
+  year    = {2023},
+  doi     = {10.38204/tematik.v10i1.1291}
+}
+
+@article{gandasari2024etika,
+  author  = {Gandasari, Fatimah and Koeswinda, Annisa Septiana and
+             Putri, Aulia Kharisma and Kumala, Disca Anansa Putri and
+             Muftihah, Nani},
+  title   = {Etika Pemanfaatan Teknologi {Artificial Intelligence} dalam
+             Penyusunan Tugas Mahasiswa},
+  journal = {EDUKATIF: Jurnal Ilmu Pendidikan},
+  volume  = {6},
+  number  = {5},
+  pages   = {5572--5578},
+  year    = {2024},
+  doi     = {10.31004/edukatif.v6i5.7036}
+}
+
+@article{salsabila2024pemahaman,
+  author  = {Salsabila, Sausan and Sohidin},
+  title   = {Pemahaman Etika Akademik Mahasiswa dalam Penggunaan
+             {Artificial Intelligence} ({AI})},
+  journal = {Journal of Education Research},
+  volume  = {5},
+  number  = {4},
+  pages   = {6671--6680},
+  year    = {2024},
+  doi     = {10.37985/jer.v5i4.1944}
+}
+
+@article{zulhijra2024transformasi,
+  author  = {Zulhijra and Suryana, Ermis and Maryamah and Karolina, Asri and
+             Syarnubi and Amilda and Pratama, Irja Putra and
+             Prihatin, Nyimas Yunierti and Mubharokh, Angge Sapto and
+             Uyun, Muhamad and Sari, Mutia and Fadli, Rahmat},
+  title   = {Transformasi Digital dalam Sitasi Karya Ilmiah: Meningkatkan
+             Akurasi dan Efesiensi dengan {Mendeley}},
+  journal = {Jurnal Inovasi Hasil Pengabdian Masyarakat (JIPEMAS)},
+  volume  = {7},
+  number  = {3},
+  pages   = {647--655},
+  year    = {2024},
+  doi     = {10.33474/jipemas.v7i3.22205}
+}
+
+@article{sari2026fabricated,
+  author  = {Sari, Indri Anjar Kartika and Purbo, Onno Widodo and
+             Pratama, Abi Julian Saputra and Saputra, Rahardian Dwi},
+  title   = {From Fabricated Citations to Unverified Journal Matches:
+             Problems and Solutions in {LLM} Assisted Manuscript Generation},
+  journal = {INNOVASI: Jurnal Inovasi Pendidikan},
+  volume  = {12},
+  number  = {3},
+  pages   = {944--953},
+  year    = {2026},
+  doi     = {10.64540/jyrkxj90}
+}
+
+@article{ariqo2025analisis,
+  author  = {Wafi, Ariqo and Rizal, Edwin and Winoto, Yunus},
+  title   = {Analisis Penggunaan Kecerdasan Buatan {ChatGPT} dalam Penulisan
+             Karya Publikasi Ilmiah: Manfaat dan Tantangan},
+  journal = {Literatify: Trends in Library Developments},
+  volume  = {6},
+  number  = {1},
+  pages   = {64--86},
+  year    = {2025},
+  doi     = {10.24252/literatify.v6i1.51508}
+}
+
+@article{budi2024repositori,
+  author  = {Budi, Erwan Setyo and Widodo, Waris Agung and
+             Sulistiyadi, Akhmad Haris},
+  title   = {Repositori Institusi Berbasis {AI} dengan Metode
+             Retrieval-Augmented Generation},
+  journal = {Libraria: Jurnal Ilmu Perpustakaan dan Informasi},
+  volume  = {13},
+  number  = {2},
+  pages   = {58--69},
+  year    = {2024},
+  doi     = {10.66162/lib.v13i2.639}
+}
+
+@article{asmaidin2026evaluasi,
+  author  = {Asmaidin, Asmaidin and Santoso, Cahyono Budy},
+  title   = {Evaluation of Retrieval Methods in Domain-Specific Chatbots
+             Based on Retrieval-Augmented Generation},
+  journal = {JSAI (Journal Scientific and Applied Informatics)},
+  volume  = {9},
+  number  = {1},
+  pages   = {105--111},
+  year    = {2026},
+  doi     = {10.36085/jsai.v9i1.9897}
+}
+
+@article{tohir2024utilizing,
+  author  = {Tohir, Herdian and Merlina, Nita and Haris, Muhammad},
+  title   = {Utilizing Retrieval-Augmented Generation in Large Language Models
+             to Enhance Indonesian Language {NLP}},
+  journal = {JITK (Jurnal Ilmu Pengetahuan dan Teknologi Komputer)},
+  volume  = {10},
+  number  = {2},
+  pages   = {352--360},
+  year    = {2024},
+  doi     = {10.33480/jitk.v10i2.5916}
+}
+
+@article{ibrahim2025application,
+  author  = {Ibrahim, Ali and Yahya, Sitti Rachmawati and Adhicandra, Iwan},
+  title   = {Application of Large Language Models ({LLMs}) for Optimising
+             Indonesian Language-Based Public Service Chatbots},
+  journal = {Technologia Journal},
+  volume  = {2},
+  number  = {4},
+  pages   = {88--101},
+  year    = {2025},
+  doi     = {10.62872/74q5b220}
 }
 

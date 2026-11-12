@@ -1,6 +1,8 @@
 %% ===========================================================================
 %%  backmatter/daftar-pustaka.tex — Daftar Pustaka
 %%  Gaya sitasi nama-tahun (apalike). Sumber ditulis di references.bib.
+%%  Gaya memakai salinan lokal apalike-id.bst agar label sitasi dan daftar
+%%  pustaka berbahasa Indonesia ("dan", "dkk.", "Dalam", "hlm.").
 %% ===========================================================================
 \clearpage
 
@@ -8,7 +10,7 @@
 \setstretch{1.5}
 \renewcommand{\bibname}{Daftar Pustaka}
 \addcontentsline{toc}{chapter}{Daftar Pustaka}
-\bibliographystyle{apalike}
+\bibliographystyle{backmatter/apalike-id}
 \bibliography{backmatter/references}
 \endgroup
 

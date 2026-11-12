@@ -9,8 +9,32 @@ kerangka dengan penanda `% TODO`.
 
 - TeX Live dengan **XeLaTeX** dan `latexmk` (sudah tersedia di mesin ini).
 - Font **Times New Roman** terpasang di sistem (macOS menyediakannya).
-- Tidak perlu memasang paket tambahan: template hanya memakai paket yang ada
-  di TeX Live Basic.
+- Tidak perlu memasang paket LaTeX tambahan: template hanya memakai paket
+  yang ada di TeX Live Basic.
+- Pola pemenggalan kata bahasa Indonesia dipasang di tingkat pengguna
+  (lihat bagian berikut). Tanpa langkah ini, TeX memakai pola bahasa Inggris
+  dan memotong kata di tempat yang salah, misalnya "kemuda-han".
+
+## Memasang pola pemenggalan kata Indonesia
+
+TeX Live Basic tidak memuat `hyph-id.tex`, dan pola pemenggalan hanya dapat
+dimuat saat format dibuat (tidak bisa lewat `\usepackage` atau `\input`).
+Karena itu pola dipasang ke pohon `texmf` pengguna tanpa perlu hak admin.
+
+```sh
+mkdir -p ~/Library/texmf/tex/generic/hyph-utf8/patterns/tex
+mkdir -p ~/Library/texmf/tex/generic/config
+# ambil hyph-id.tex dari https://github.com/hyphenation/tex-hyphen
+cp hyph-id.tex ~/Library/texmf/tex/generic/hyph-utf8/patterns/tex/
+cp "$(kpsewhich language.dat)" ~/Library/texmf/tex/generic/config/language.dat
+printf 'indonesian hyph-id.tex\n' >> ~/Library/texmf/tex/generic/config/language.dat
+fmtutil-user --byfmt xelatex
+```
+
+Setelah itu `make` tidak lagi memberi peringatan
+`No hyphenation patterns were preloaded` untuk bahasa Indonesia. Karena format
+pengguna kini menggantikan format sistem, jalankan `fmtutil-user --byfmt
+xelatex` lagi setiap kali TeX Live diperbarui.
 
 ## Cara kompilasi
 
@@ -62,6 +86,14 @@ sampul-only.tex          build khusus halaman sampul
    `backmatter/references.bib`, lalu sitasi dengan `\citep{kunci}` atau
    `\citet{kunci}`.
 
+  Urutan pemakaian rujukan: paper Indonesia lebih dahulu, paper luar negeri
+  sebagai pendukung kedua. Setiap entri jurnal wajib memuat artikel aslinya
+  (penulis, judul, jurnal, volume(nomor), halaman, tahun, DOI) dan sudah
+  diperiksa ke OpenAlex. Artikel jurnal harus terbit dalam empat tahun
+  terakhir, yaitu 2023--2026 untuk laporan 2026; rujukan yang lebih lama
+  hanya boleh dipakai sebagai rujukan dasar dengan catatan `% TODO`.
+  Rincian aturannya ada di `AGENTS.md`.
+
 ## Makro yang tersedia
 
 | Makro | Kegunaan |
@@ -74,8 +106,39 @@ sampul-only.tex          build khusus halaman sampul
 | `\babfrontmatter{Judul}` | halaman bab tanpa nomor + entri daftar isi |
 | `\citep{kunci}` / `\citet{kunci}` | sitasi nama-tahun (apalike) |
 
+Label sitasi dan Daftar Pustaka memakai salinan gaya lokal
+`backmatter/apalike-id.bst`, yaitu `apalike.bst` yang diterjemahkan. Dua
+penulis dipisah "dan", lebih dari dua memakai "dkk.", prosiding diawali
+"Dalam", dan halaman ditulis "hlm.". Jangan mengembalikan
+`\bibliographystyle{apalike}` bawaan karena akan memunculkan kembali
+"and", "et al.", dan "pages".
+
 Bentuk tabel, gambar, grafik, dan kutipan kode program sudah tersedia sebagai
 contoh yang dikomentari di `chapters/bab4-pembahasan.tex`.
+
+## Memeriksa rujukan lewat OpenAlex
+
+Setiap DOI di `backmatter/references.bib` diperiksa dulu ke OpenAlex supaya
+tidak ada sitasi karangan. Pemeriksaan memakai MCP `openalex`
+([openalex-research-mcp](https://github.com/oksure/openalex-research-mcp))
+yang terpasang di `/Volumes/SSD/Mcp/mcp-openalex` dan terdaftar di
+`~/.codex/config.toml`. Alat yang dipakai: `get_work` (argumen `id`) untuk
+satu DOI dan `batch_resolve_references` (argumen `ids`) untuk banyak DOI
+sekaligus. DOI yang tidak ditemukan dilaporkan sebagai tidak terpecahkan,
+sehingga sitasi karangan langsung ketahuan.
+
+Kunci API OpenAlex hanya disimpan di berkas konfigurasi lokal itu, tidak di
+dalam repo. Untuk memasang ulang di mesin lain:
+
+```sh
+mkdir -p /Volumes/SSD/Mcp/mcp-openalex
+cd /Volumes/SSD/Mcp/mcp-openalex
+npm init -y && npm install openalex-research-mcp@0.5.0
+codex mcp add openalex --env OPENALEX_API_KEY=<kunci> \
+  -- node /Volumes/SSD/Mcp/mcp-openalex/node_modules/openalex-research-mcp/build/index.js
+```
+
+MCP baru terbaca setelah aplikasi Codex dimulai ulang.
 
 ## Format yang sudah diterapkan
 
@@ -94,11 +157,10 @@ contoh yang dikomentari di `chapters/bab4-pembahasan.tex`.
 
 ## Catatan sebelum dicetak
 
-Catatan teknis: saat kompilasi, XeLaTeX memberi peringatan
-`Package babel Warning: No hyphenation patterns were preloaded` karena
-TeX Live Basic tidak memuat pola pemenggalan kata bahasa Indonesia. Peringatan
-itu tidak menggagalkan build; paragraf justify sudah diberi toleransi lebih
-longgar di `laporan.sty` agar tidak berlubang.
+Catatan teknis: bila mesin lain belum memasang pola pemenggalan kata
+Indonesia seperti dijelaskan di bagian Prasyarat, XeLaTeX akan memberi
+peringatan `No hyphenation patterns were preloaded`. Build tetap berhasil,
+tetapi kata Indonesia dapat terpotong mengikuti pola bahasa Inggris.
 
 - Jumlah halaman minimal **45** halaman; periksa dengan `pdfinfo main.pdf`.
 - Sampul dicetak pada kertas Omega **hijau daun** dengan tinta hitam

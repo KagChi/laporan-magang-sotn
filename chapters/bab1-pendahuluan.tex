@@ -3,23 +3,146 @@
 %%  Aturan isi: alinea 4-5 kalimat, satu gagasan per alinea, spasi 2, awal
 %%  alinea menjorok otomatis 1,5 cm, rata kiri-kanan. Istilah asing italic:
 %%  \asing{open source}.
+%%  Sudut pandang: orang pertama ("saya") untuk pengalaman magang.
 %% ===========================================================================
 \chapter{Pendahuluan}
 
 \section{Latar Belakang}
-% TODO: latar belakang masalah dan alasan penyusunan laporan magang ini.
+
+Kegiatan utama di Broadband Multimedia Wireless Laboratory, National Taiwan
+University of Science and Technology, adalah penyusunan artikel jurnal. Sebelum
+menulis, peneliti harus menemukan artikel yang sesuai dengan topik yang sedang
+dikerjakan. Pencarian biasanya dilakukan dengan kata kunci pada pangkalan data,
+sehingga hasilnya banyak tetapi belum tentu sesuai dengan konteks penelitian.
+Akibatnya, peneliti harus membaca dan menyaring abstrak artikel satu per satu.
+
+Persoalan yang dihadapi sebenarnya sederhana, yaitu menemukan artikel yang
+cocok dengan konteks penelitian yang sedang dikerjakan. Kata kunci belum tentu
+mewakili konteks tersebut, sehingga hasil pencarian perlu dinilai dengan cara
+lain. \citet{asmaidin2026evaluasi} menemukan bahwa ketepatan penemuan dokumen
+lebih ditentukan oleh cara peringkat dan pemilihan konteks daripada oleh jumlah
+dokumen yang tersedia. Karena itu, sistem pencarian perlu membandingkan isi
+artikel dengan konteks penelitian, bukan hanya mencocokkan kata kunci.
+
+Salah satu pendekatan yang dapat dipakai adalah \asing{retrieval-augmented
+generation}. Pendekatan ini mengambil dokumen yang relevan terlebih dahulu,
+lalu menyusun jawaban hanya berdasarkan dokumen yang diambil.
+\citet{lewis2020retrieval} memperkenalkan gagasan tersebut, sedangkan
+\citet{budi2024repositori} menerapkannya pada repositori institusi dan
+\citet{tohir2024utilizing} mengujinya pada korpus berbahasa Indonesia. Kedua
+penerapan itu menunjukkan bahwa pengambilan dokumen lebih dahulu membuat
+jawaban bertumpu pada sumber yang nyata. Dengan demikian, penilaian artikel
+dapat disertai dasar yang dapat diperiksa.
+
+Kemampuan tersebut tetap perlu dikendalikan karena model bahasa dapat keliru.
+\citet{walters2023fabrication} menemukan bahwa sebagian besar sitasi yang
+dihasilkan model percakapan tidak akurat, sedangkan
+\citet{sari2026fabricated} menemukan bahwa sitasi rekaan masih lolos pada tahap
+pencocokan judul. Karena itu, sistem harus menampilkan kutipan bagian abstrak
+yang menjadi dasar penilaian dan menyimpan artikel aslinya. Peneliti tetap
+memeriksa artikel tersebut sebelum menggunakan rujukan dalam naskah.
+
+Selama periode magang 12 Januari sampai 28 September 2026, saya merancang dan
+mengimplementasikan sistem pencarian jurnal berbantuan kecerdasan buatan yang
+dijalankan pada komputer peneliti. Sistem mengambil artikel dari dua
+sumber data, yaitu OpenAlex dan \asing{IEEE Xplore}. Konteks penelitian
+yang ditulis peneliti dibandingkan dengan abstrak artikel, lalu sistem
+menampilkan artikel yang paling sesuai beserta alasan penilaiannya. Sistem
+telah diuji pada sejumlah skenario terbatas, tetapi belum digunakan sepenuhnya
+oleh peneliti di laboratorium.
 
 \section{Tujuan Magang}
-% TODO: tujuan pelaksanaan magang, boleh berupa daftar bernomor.
+
+Magang dilaksanakan untuk menghubungkan pengetahuan yang saya peroleh melalui
+pendidikan formal dengan pekerjaan nyata di lingkungan laboratorium riset. Saya
+ditempatkan pada pekerjaan pengembangan perangkat lunak yang menopang kegiatan
+penelitian, sehingga dapat mengamati langsung bagaimana kebutuhan peneliti
+diterjemahkan menjadi fitur sistem. Penempatan tersebut juga memberi saya
+kesempatan menguji keputusan rancangan pada pengguna yang sebenarnya.
+Tujuan umum tersebut dijabarkan menjadi beberapa tujuan khusus sebagai berikut.
+
+\begin{enumerate}
+  \item Merancang sistem pencarian jurnal yang membandingkan konteks penelitian
+        dengan abstrak artikel calon rujukan.
+  \item Mengimplementasikan pengambilan bagian abstrak yang relevan dengan
+        konteks penelitian menggunakan pendekatan \asing{retrieval-augmented
+        generation}.
+  \item Mengimplementasikan integrasi dua sumber data, yaitu OpenAlex dan
+        \asing{IEEE Xplore}, agar artikel dapat dicari dari keduanya.
+  \item Mengimplementasikan penilaian kesesuaian artikel beserta alasan dan
+        kutipan bagian yang menjadi dasar penilaian.
+  \item Menguji ketepatan artikel yang ditemukan pada sejumlah skenario
+        terbatas karena sistem belum digunakan sepenuhnya oleh peneliti.
+\end{enumerate}
+
+Melalui kelima tujuan tersebut, magang diarahkan pada satu hasil yang utuh,
+yaitu perangkat lunak yang dapat digunakan saat peneliti memilih rujukan. Setiap
+tujuan memiliki ukuran keberhasilan yang diperiksa pada tahap pengujian. Saya
+juga mencatat kendala yang muncul selama pengerjaan agar dapat dijadikan bahan
+perbaikan pada pengembangan berikutnya.
 
 \section{Manfaat Magang}
-% TODO: satu alinea pengantar, lalu rincian pada tiga subbagian di bawah.
+
+Pelaksanaan magang memberikan manfaat bagi tiga pihak yang terlibat, yaitu
+peserta magang, program studi, dan instansi tujuan magang. Manfaat tersebut
+tidak berdiri sendiri, melainkan saling berkaitan sebagai hasil dari pekerjaan
+yang sama. Peserta magang memperoleh pengalaman kerja, program studi memperoleh
+contoh penerapan ilmu, dan instansi memperoleh perangkat yang membantu
+pekerjaannya. Uraian berikut menjelaskan bentuk manfaat pada masing-masing
+pihak.
 
 \subsection{Manfaat bagi Peserta Magang}
-% TODO: manfaat yang dirasakan mahasiswa.
+
+Manfaat utama bagi saya adalah pengalaman mengerjakan perangkat lunak dari
+tahap perancangan sampai pengujian. Saya belajar menerjemahkan kebutuhan
+pengguna yang masih umum menjadi rancangan fitur yang dapat dikerjakan. Saya
+juga berlatih menulis kode, menelusuri kesalahan, dan memperbaiki sistem yang
+sudah berjalan tanpa mengganggu data pengguna. Pengalaman tersebut tidak
+diperoleh hanya dari membaca buku, karena setiap keputusan harus diuji pada
+pemakaian yang sebenarnya.
+
+Selain keterampilan teknis, magang melatih cara berkomunikasi dengan peneliti
+yang menjadi pengguna sistem. Saya belajar menanyakan kebutuhan dengan
+pertanyaan yang tepat dan menjelaskan keputusan teknis tanpa menggunakan istilah
+yang membingungkan. Pengalaman ini menumbuhkan kebiasaan mendokumentasikan
+pekerjaan agar dapat dilanjutkan oleh orang lain. Saya juga memperoleh
+gambaran mengenai budaya kerja penelitian di laboratorium universitas luar
+negeri.
 
 \subsection{Manfaat bagi Program Studi}
-% TODO: manfaat bagi \ProgramStudi{} \NamaKampus.
+
+Bagi Program Studi Sistem Informasi, magang ini menghasilkan contoh penerapan
+ilmu sistem informasi pada pekerjaan penelitian. Kasus yang dikerjakan
+memperlihatkan bahwa analisis kebutuhan, perancangan basis data, dan
+pengembangan antarmuka tidak hanya digunakan pada sistem bisnis, tetapi juga pada
+perangkat pendukung riset. Contoh tersebut dapat digunakan sebagai bahan
+pembelajaran pada mata kuliah yang relevan. Dengan demikian, materi kuliah
+memperoleh gambaran penerapan yang dekat dengan pekerjaan lulusan.
+
+Magang ini juga memperluas jejaring kerja sama program studi dengan institusi
+pendidikan di luar negeri. Hubungan yang terbentuk selama periode magang dapat
+dimanfaatkan untuk kegiatan pertukaran mahasiswa maupun kerja sama penelitian
+pada masa berikutnya. Pengalaman saya selama mengikuti program tersebut dapat
+dibagikan kepada mahasiswa lain sebagai gambaran dunia kerja di bidang tersebut.
+Program studi memperoleh masukan mengenai kemampuan yang perlu diperkuat pada
+mahasiswa yang berminat bekerja di bidang riset.
 
 \subsection{Manfaat bagi Instansi Tujuan Magang}
-% TODO: manfaat bagi \InstansiMagang.
+
+Bagi Broadband Multimedia Wireless Laboratory, magang ini menghasilkan
+perangkat lunak yang membantu anggota laboratorium memilih rujukan jurnal.
+Sistem yang dibangun membandingkan konteks penelitian dengan abstrak artikel,
+lalu menampilkan artikel yang paling sesuai beserta alasan penilaiannya, dengan
+sumber data dari OpenAlex maupun \asing{IEEE Xplore}. Dengan demikian, waktu yang
+biasa digunakan untuk membaca dan menyaring abstrak satu per satu dapat dialihkan
+ke pekerjaan analisis. Perangkat tersebut juga dapat digunakan oleh anggota baru
+yang sedang mempelajari topik penelitian laboratorium.
+
+Laboratorium memperoleh cara kerja yang tetap menyertakan pemeriksaan peneliti.
+Setiap artikel yang dinilai berasal dari abstrak yang benar-benar tersimpan,
+sehingga rujukan yang digunakan dapat ditelusuri kembali kepada artikel aslinya.
+Sistem beserta panduan pemakaiannya diserahkan kepada laboratorium agar dapat
+dicoba dan dinilai pada pekerjaan berikutnya. Pemakaian penuh belum dilakukan
+selama masa magang, sehingga penilaian manfaat pada laporan ini terbatas pada
+hasil uji. Hasil kerja ini menjadi titik awal bagi pengembangan perangkat serupa
+pada proyek penelitian berikutnya.
